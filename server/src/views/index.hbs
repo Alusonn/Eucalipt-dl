@@ -1,0 +1,62 @@
+<h1>products</h1>
+
+<ul>
+  {{#each products}}
+    <li>
+      <h3>{{title}} {{desc}} </h3>
+      <p>{{type}}</p>
+      <p>{{price}}</p>
+    </li>
+  {{/each}}
+</ul>
+
+<form action="/new-product" method="POST">
+
+  <div>
+    <label for="title">Titulo:</label>
+    <input type="text" name="title" id="title" placeholder="titulo" />
+  </div>
+  <div>
+    <label for="desc">Descripcion:</label>
+    <input type="text" name="desc" id="desc" placeholder="descricion" />
+  </div>
+  <div>
+    <label for="type">Tipo:</label>
+    <input type="text" name="type" id="type" placeholder="tipo" />
+  </div>
+  <div>
+    <label for="size">Talle: </label>
+    <label for="XS">XS</label>
+    <input type="checkbox" name="XS" id="XS">
+    
+    <label for="S">S</label>
+    <input type="checkbox" name="S" id="S">
+
+    <label for="M">M</label>
+    <input type="checkbox" name="M" id="M">
+
+    <label for="L">L</label>
+    <input type="checkbox" name="L" id="L">
+
+    <label for="XL">XL</label>
+    <input type="checkbox" name="XL" id="XL">
+
+    <label for="XXL">XXL</label>
+    <input type="checkbox" name="XXL" id="XXL">
+
+    <label for="XXXL">XXXL</label>
+    <input type="checkbox" name="XXXL" id="XXXL">
+
+    <label for="Unico">Unico</label>
+    <input type="checkbox" name="Unico" id="Unico">
+  </div>
+  <div>
+    <label for="price">Precio:</label>
+    <input type="number" name="price" id="number" placeholder="precio" />
+  </div>
+  <div>
+    <label for="sku">SKU:</label>
+    <input type="number" name="sku" id="sku" placeholder="SKU" />
+  </div>
+  <button type="submit">Enviar</button>
+</form>

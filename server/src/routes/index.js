@@ -6,11 +6,10 @@ const { db } = require("../firebase");
 
 // Recibe los productos de la Base de datos
 
-router.get("/products", async (req, res) => {
+router.get("/", async (req, res) => {
   const querySnapshot = await db.collection("Productos").get();
 
-  const productos = querySnapshot.docs.map((doc) => ({
-
+  const products = querySnapshot.docs.map((doc) => ({
     // Forma para traer el id del producto, que es el ID que le crea google en Firebase
     id: doc.id,
 
@@ -21,16 +20,20 @@ router.get("/products", async (req, res) => {
     ...doc.data(),
   }));
 
-  res.json({
-    ok: true,
-    msg: "Productos desde DB",
-    productos,
-  });
+  // res.json({
+  //   ok: true,
+  //   msg: "Productos desde DB",
+  //   productos,
+  // });
+
+  console.log(products);
+
+  res.render("index", { products });
 });
 
 //  Se manda solicitud para crear producto nuevo
 
-router.post("/new-product", async(req, res) => {
+router.post("/new-product", async (req, res) => {
   // Constante para leer el formulario
   const { title, desc, type, price, sku, size } = req.body;
 
@@ -41,65 +44,63 @@ router.post("/new-product", async(req, res) => {
     type,
     price,
     sku,
-    size
+    size,
+    XS,
+    S,
+    M,
+    L,
+    XL,
+    XXL,
+    XXXL,
+    Unico,
   });
 
-
-  const newProduct = ({title, desc, type, price, sku, size});
+  const newProduct = { title, desc, type, price, sku, size };
 
   res.status(201).json({
     ok: true,
     message: "Nuevo producto creado",
-    
+
     newProduct,
   });
 });
 
 // Se manda solicitud para solicitar id del producto y editarlo posteriormente en el /update-product post
 
-router.get("/edit-product/:id", async(req, res) => {
+router.get("/edit-product/:id", async (req, res) => {
+  const doc = await db.collection("Productos").doc(req.params.id).get();
 
-  const doc = await db.collection('Productos').doc(req.params.id).get()
-
-  console.log({ id: doc.id, ...doc.data()})
+  console.log({ id: doc.id, ...doc.data() });
 
   res.json({
     ok: true,
-  
-    msg:"producto editado",
 
-
-  })
-
-})
+    msg: "producto editado",
+  });
+});
 
 // Se manda solicitud y se elimina producto
 
-router.get("/delete-product/:id", async(req, res) => {
-
-  await db.collection('Productos').doc(req.params.id).delete()
+router.get("/delete-product/:id", async (req, res) => {
+  await db.collection("Productos").doc(req.params.id).delete();
 
   res.json({
     ok: true,
-    msg: "Contacto eliminado"
-  })
-
-
-})
+    msg: "Contacto eliminado",
+  });
+});
 
 // Se manda la solicitud desde el front end y se actualiza
 
-router.post("/update-product/:id", async(req, res) => {
+router.post("/update-product/:id", async (req, res) => {
+  const { id } = req.params;
 
-  const { id } = req.params
+  db.collection("Productos").doc(id).update(req.body);
 
-  db.collection("Productos").doc(id).update(req.body)
-  
   res.json({
     ok: true,
-    msg: "Producto actualizado correctamente"
-  })
-
-})
+    msg: "Producto actualizado correctamente",
+  });
+});
 
 module.exports = router;
