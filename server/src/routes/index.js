@@ -32,7 +32,7 @@ router.get("/products", async (req, res) => {
 
 router.post("/new-product", async(req, res) => {
   // Constante para leer el formulario
-  const { title, desc, type, price, sku } = req.body;
+  const { title, desc, type, price, sku, size } = req.body;
 
   // Añadiendo productos a la base de datos
   await db.collection("Productos").add({
@@ -41,10 +41,11 @@ router.post("/new-product", async(req, res) => {
     type,
     price,
     sku,
+    size
   });
 
 
-  const newProduct = ({title, desc, type, price, sku});
+  const newProduct = ({title, desc, type, price, sku, size});
 
   res.status(201).json({
     ok: true,
@@ -53,6 +54,8 @@ router.post("/new-product", async(req, res) => {
     newProduct,
   });
 });
+
+// Se manda solicitud para solicitar id del producto y editarlo posteriormente en el /update-product post
 
 router.get("/edit-product/:id", async(req, res) => {
 
@@ -70,6 +73,7 @@ router.get("/edit-product/:id", async(req, res) => {
 
 })
 
+// Se manda solicitud y se elimina producto
 
 router.get("/delete-product/:id", async(req, res) => {
 
@@ -80,6 +84,21 @@ router.get("/delete-product/:id", async(req, res) => {
     msg: "Contacto eliminado"
   })
 
+
+})
+
+// Se manda la solicitud desde el front end y se actualiza
+
+router.post("/update-product/:id", async(req, res) => {
+
+  const { id } = req.params
+
+  db.collection("Productos").doc(id).update(req.body)
+  
+  res.json({
+    ok: true,
+    msg: "Producto actualizado correctamente"
+  })
 
 })
 

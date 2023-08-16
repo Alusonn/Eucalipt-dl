@@ -9,12 +9,19 @@
 
 require('dotenv').config()
 
+// Importaciones necesarias de base de datos
+
 const { initializeApp, applicationDefault } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore')
+
+
+// Busca automaticamente el credential de Google
 
 initializeApp({
   credential: applicationDefault()
 })
+
+// Conexion a base de datos
 
 const db = getFirestore()
 

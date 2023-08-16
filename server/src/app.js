@@ -2,9 +2,15 @@ const express = require("express");
 const morgan = require("morgan");
 const routes = require("./routes/index")
 const path = require("path")
+const exphbs = require("express-handlebars")
 
 // Para usar aplicacion
 const app = express();
+
+
+app.set("views", path.)
+
+
 
 // Para ver cambios y solicitudes en consola 
 app.use(morgan("dev"));
