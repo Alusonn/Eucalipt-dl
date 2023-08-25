@@ -1,6 +1,4 @@
-require('dotenv').config()
+import app from './app'
 
-const app = require('./app')
-
-app.listen(process.env.PORT)
-console.log(`Servidor corriendo en el puerto ${ process.env.PORT } ` )
+app.listen(3000)
+console.log('Server running in port', 3000)
