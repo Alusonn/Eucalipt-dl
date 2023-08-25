@@ -26,8 +26,6 @@ router.get("/", async (req, res) => {
   //   productos,
   // });
 
-  console.log(products);
-
   res.render("index", { products });
 });
 
@@ -37,6 +35,8 @@ router.post("/new-product", async (req, res) => {
   // Constante para leer el formulario
   const { title, desc, type, price, sku, size } = req.body;
 
+  const selectedSizes = req.body.sizes;
+
   // Añadiendo productos a la base de datos
   await db.collection("Productos").add({
     title,
@@ -44,25 +44,18 @@ router.post("/new-product", async (req, res) => {
     type,
     price,
     sku,
-    size,
-    XS,
-    S,
-    M,
-    L,
-    XL,
-    XXL,
-    XXXL,
-    Unico,
+    selectedSizes,
   });
 
-  const newProduct = { title, desc, type, price, sku, size };
+  const newProduct = { title, desc, type, price, sku, size, selectedSizes };
 
-  res.status(201).json({
-    ok: true,
-    message: "Nuevo producto creado",
+  // res.status(201).json({
+  //   ok: true,
+  //   message: "Nuevo producto creado",
+  //   newProduct,
+  // });
 
-    newProduct,
-  });
+  res.redirect("/");
 });
 
 // Se manda solicitud para solicitar id del producto y editarlo posteriormente en el /update-product post
@@ -70,13 +63,14 @@ router.post("/new-product", async (req, res) => {
 router.get("/edit-product/:id", async (req, res) => {
   const doc = await db.collection("Productos").doc(req.params.id).get();
 
-  console.log({ id: doc.id, ...doc.data() });
+  // console.log({ id: doc.id, ...doc.data() });
 
-  res.json({
-    ok: true,
+  // res.json({
+  //   ok: true,
+  //   msg: "producto editado",
+  // });
 
-    msg: "producto editado",
-  });
+  res.render("index", { product: { id: doc.id, ...doc.data() } });
 });
 
 // Se manda solicitud y se elimina producto
@@ -84,10 +78,12 @@ router.get("/edit-product/:id", async (req, res) => {
 router.get("/delete-product/:id", async (req, res) => {
   await db.collection("Productos").doc(req.params.id).delete();
 
-  res.json({
-    ok: true,
-    msg: "Contacto eliminado",
-  });
+  // res.json({
+  //   ok: true,
+  //   msg: "Contacto eliminado",
+  // });
+
+  res.redirect("/");
 });
 
 // Se manda la solicitud desde el front end y se actualiza
@@ -97,10 +93,12 @@ router.post("/update-product/:id", async (req, res) => {
 
   db.collection("Productos").doc(id).update(req.body);
 
-  res.json({
-    ok: true,
-    msg: "Producto actualizado correctamente",
-  });
+  // res.json({
+  //   ok: true,
+  //   msg: "Producto actualizado correctamente",
+  // });
+
+  res.redirect("/");
 });
 
 module.exports = router;

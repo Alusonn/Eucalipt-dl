@@ -6,57 +6,61 @@
       <h3>{{title}} {{desc}} </h3>
       <p>{{type}}</p>
       <p>{{price}}</p>
+      <p>{{selectedSizes}}</p>
+
+      <a href="/delete-product/{{id}}">Delete</a>
+      <a href="/edit-product/{{id}}">Editar</a>
     </li>
   {{/each}}
 </ul>
 
-<form action="/new-product" method="POST">
+<form action="{{#unless product.id}}/new-product{{else}}/update-product/{{product.id}}{{/unless}}" method="POST">
 
   <div>
     <label for="title">Titulo:</label>
-    <input type="text" name="title" id="title" placeholder="titulo" />
+    <input type="text" name="title" id="title" placeholder="titulo" value="{{product.title}}" />
   </div>
   <div>
     <label for="desc">Descripcion:</label>
-    <input type="text" name="desc" id="desc" placeholder="descricion" />
+    <input type="text" name="desc" id="desc" placeholder="descricion" value="{{product.desc}}"/>
   </div>
   <div>
     <label for="type">Tipo:</label>
-    <input type="text" name="type" id="type" placeholder="tipo" />
+    <input type="text" name="type" id="type" placeholder="tipo" value="{{product.type}}"/>
   </div>
   <div>
     <label for="size">Talle: </label>
     <label for="XS">XS</label>
-    <input type="checkbox" name="XS" id="XS">
+    <input type="checkbox" name="sizes" value="XS" id="XS" value="{{product.selectedSizes}}">
     
     <label for="S">S</label>
-    <input type="checkbox" name="S" id="S">
+    <input type="checkbox" name="sizes" value="S" id="S" value="{{product.selectedSizes}}">
 
     <label for="M">M</label>
-    <input type="checkbox" name="M" id="M">
+    <input type="checkbox" name="sizes" value="M" id="M" value="{{product.selectedSizes}}">
 
     <label for="L">L</label>
-    <input type="checkbox" name="L" id="L">
+    <input type="checkbox" name="sizes" value="L" id="L" value="{{product.selectedSizes}}">
 
     <label for="XL">XL</label>
-    <input type="checkbox" name="XL" id="XL">
+    <input type="checkbox" name="sizes" value="XL" id="XL" value="{{product.selectedSizes}}">
 
     <label for="XXL">XXL</label>
-    <input type="checkbox" name="XXL" id="XXL">
+    <input type="checkbox" name="sizes" value="XXL" id="XXL" value="{{product.selectedSizes}}">
 
     <label for="XXXL">XXXL</label>
-    <input type="checkbox" name="XXXL" id="XXXL">
+    <input type="checkbox" name="sizes" value="XXXL" id="XXXL" value="{{product.selectedSizes}}">
 
     <label for="Unico">Unico</label>
-    <input type="checkbox" name="Unico" id="Unico">
+    <input type="checkbox" name="sizes" value="Unico" id="Unico" value="{{product.selectedSizes}}">
   </div>
   <div>
     <label for="price">Precio:</label>
-    <input type="number" name="price" id="number" placeholder="precio" />
+    <input type="number" name="price" id="number" placeholder="precio" value="{{product.price}}"/>
   </div>
   <div>
     <label for="sku">SKU:</label>
-    <input type="number" name="sku" id="sku" placeholder="SKU" />
+    <input type="number" name="sku" id="sku" placeholder="SKU" value="{{product.sku}}"/>
   </div>
   <button type="submit">Enviar</button>
 </form>
