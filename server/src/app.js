@@ -19,6 +19,7 @@ app.use(express.json())
 
 
 
+
 app.use(indexRoutes)
 app.use(productsRoutes)
 

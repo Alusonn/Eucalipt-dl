@@ -1,20 +1,102 @@
-import product from "../models/product"
+import { unlink } from "fs-extra";
+import { deleteImage, uploadImage } from "../middlewares/cloudinary";
+import Product from "../models/product";
 
 export const getProducts = async (req, res) => {
-    const products = await product.find()
-    res.json(products)
-}
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
-export const createProduct = (req, res) => {
+export const getProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
 
-    const { name, description, price } = req.body
+    if (!product)
+      return res.status(404).json({
+        message: "Producto no existe",
+      });
 
-    console.log(name, description, price)
-    res.json('Recibido')
+    return res.json(product);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const createProduct = async (req, res) => {
+  try {
+    const { name, description, type, price, sku, sizes } = req.body;
 
 
-}
+    const product = new Product({
+      name,
+      description,
+      type,
+      price,
+      sku,
+      sizes,
+    });
 
-export const updateProduct = (req, res) => res.send("Updating Products")
+    if(req.files?.image) {
+      const { public_id, secure_url } = await uploadImage( req.files.image.tempFilePath )
+      product.image = {
+        public_id,
+        secure_url
+      }
 
-export const deleteProduct = (req, res) => res.send("Deleting Products")
+      await unlink(req.files.image.tempFilePath)
+    }
+
+    await product.save();
+
+    res.json(product);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+
+    if (!product)
+      return res.status(404).json({
+        message: "Producto no se puede eliminar porque no existe",
+      });
+
+      await deleteImage(product.image.public_id)
+      await unlink(req.files.image.tempFilePath)
+
+
+    return res.json(product);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const productUpdated = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    return res.json(productUpdated);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
