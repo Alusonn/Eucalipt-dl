@@ -40,6 +40,16 @@ const productSchema = Schema(
       type: Boolean,
       default: false,
       required: true
+    },
+    sold: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    active: {
+      type: Boolean,
+      default: false,
+      required: true
     }
   },
   {
