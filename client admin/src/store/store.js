@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { counterReducer } from "./admin/adminSlice";
+import { adminSlice } from "./adminSlice";
+import { productsSlice } from "./productsSlice";
 
 export const store = configureStore({
-    reducer: {
-        counter: counterReducer
-    }
-})
+  reducer: {
+    admin: adminSlice.reducer,
+    products: productsSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
