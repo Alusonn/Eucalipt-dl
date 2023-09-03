@@ -10,10 +10,10 @@ import fileUpload from "express-fileupload";
 
 const router = Router();
 
-router.get("/products", getProducts);
+router.get("/adminApi/products", getProducts);
 
 router.post(
-  "/products",
+  "/adminApi/products",
   fileUpload({
     useTempFiles: true,
     tempFileDir: "./uploads",
@@ -21,10 +21,10 @@ router.post(
   createProduct
 );
 
-router.put("/products/:id", updateProduct);
+router.put("/adminApi/products/:id", updateProduct);
 
-router.delete("/products/:id", deleteProduct);
+router.delete("/adminApi/products/:id", deleteProduct);
 
-router.get("/products/:id", getProduct);
+router.get("/adminApi/products/:id", getProduct);
 
 export default router;

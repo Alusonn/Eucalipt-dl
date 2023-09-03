@@ -47,8 +47,12 @@ export const productsSlice = createSlice({
     onAddNewProduct: ( state, { payload } ) => {
         state.products.push(payload);
         state.activeProduct = null
+    },
+    onLoadProduct: ( state, {payload = {}} ) => {
+      state.isLoading = false,
+      state.activeProduct = payload
     }
   },
 });
 
-export const { onLoadProducts, onSetActiveProduct, onDeleteProduct } = productsSlice.actions;
+export const { onLoadProducts, onSetActiveProduct, onDeleteProduct, onLoadProduct  } = productsSlice.actions;

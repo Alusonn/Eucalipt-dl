@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { adminApi } from "../api/adminApi";
 import {
   onDeleteProduct,
+  onLoadProduct,
   onLoadProducts,
   onSetActiveProduct,
 } from "../store/productsSlice";
@@ -37,15 +38,26 @@ export const useProductsStore = () => {
     }
   };
 
+  const startLoadingProduct = async(_id) => {
+    try {
+      const { data } = await adminApi.get(`/products/${_id}`)
+      dispatch(onLoadProduct(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     // Propiedades
 
     products,
+    activeProduct,
 
     // Metodos
 
     startLoadingProducts,
     setActiveProduct,
     startDeletingProduct,
+    startLoadingProduct
   };
 };
