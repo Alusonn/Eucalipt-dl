@@ -50,7 +50,7 @@ export const productsSlice = createSlice({
     },
     onLoadProduct: ( state, {payload = {}} ) => {
       state.isLoading = false,
-      state.activeProduct = payload
+      state.products = payload
     }
   },
 });
