@@ -4,13 +4,13 @@ import { AdminProducts } from "../pages/AdminProducts";
 import { LoginPage } from "../pages/LoginPage";
 import { CheckingPage } from "../pages/CheckingPage";
 import { AdminProduct } from "../pages/AdminProduct";
+import { NewProduct } from "../pages/NewProduct";
 
 export const AppRouter = () => {
   const authStatus = "authenticated";
 
-
-  if (authStatus === 'checking') {
-    return <CheckingPage />
+  if (authStatus === "checking") {
+    return <CheckingPage />;
   }
 
   return (
@@ -19,10 +19,11 @@ export const AppRouter = () => {
         <>
           <Route path="/" element={<AdminProducts />} />
           <Route path="/:_id" element={<AdminProduct />} />
+          <Route path="/nuevo-producto" element={<NewProduct />} />
         </>
       ) : (
         <>
-        <Route path="/*" element={ <Navigate to="/login" /> } />
+          <Route path="/*" element={<Navigate to="/login" />} />
           <Route path="/login" element={<LoginPage />} />
         </>
       )}
