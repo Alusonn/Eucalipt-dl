@@ -46,6 +46,7 @@ export const createProduct = async (req, res) => {
       sold,
     });
 
+
     if (req.files?.image) {
       const { public_id, secure_url } = await uploadImage(
         req.files.image.tempFilePath

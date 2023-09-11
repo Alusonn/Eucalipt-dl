@@ -38,14 +38,14 @@ export const useProductsStore = () => {
     }
   };
 
-  const startLoadingProduct = async(_id) => {
+  const startLoadingProduct = async (_id) => {
     try {
-      const { data } = await adminApi.get(`/products/${_id}`)
-      dispatch(onLoadProduct(data))
+      const { data } = await adminApi.get(`/products/${_id}`);
+      dispatch(onLoadProduct(data));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return {
     // Propiedades
@@ -58,6 +58,6 @@ export const useProductsStore = () => {
     startLoadingProducts,
     setActiveProduct,
     startDeletingProduct,
-    startLoadingProduct
+    startLoadingProduct,
   };
 };

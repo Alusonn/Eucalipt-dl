@@ -1,14 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const adminSlice = createSlice({
-  name: "admin",
+export const cartUiSlice = createSlice({
+  name: "cartUi",
   initialState: {
     products: [],
     isOpen: false,
   },
   reducers: {
-
+    onOpenCartUi: (state) => {
+      state.isOpen = true;
+    },
+    onCloseCartUi: (state) => {
+      state.isOpen = false;
+    },
+    onAddProduct: ({ payload = {} }) => {
+      state.products = payload;
+    },
   },
 });
 
-export const {  } = adminSlice.actions;
+export const { onOpenCartUi, onCloseCartUi, onAddProduct } =
+  cartUiSlice.actions;
