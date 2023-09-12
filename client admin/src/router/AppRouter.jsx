@@ -6,7 +6,7 @@ import { CheckingPage } from "../pages/CheckingPage";
 import { AdminProduct } from "../pages/AdminProduct";
 import { NewProduct } from "../pages/NewProduct";
 
-export const eAppRouter = () => {
+export const AppRouter = () => {
   const authStatus = "authenticated";
 
   if (authStatus === "checking") {

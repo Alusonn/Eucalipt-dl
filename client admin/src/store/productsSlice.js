@@ -23,15 +23,16 @@ export const productsSlice = createSlice({
   reducers: {
     onLoadProducts: (state, { payload = [] }) => {
       state.isLoading = false;
-      // state.products = payload Esta es la otra forma exactamente igual
-      payload.forEach((product) => {
-        const exist = state.products.some(
-          (dbProduct) => dbProduct._id === product._id
-        );
-        if (!exist) {
-          state.products.push(product);
-        }
-      });
+      state.products = payload //Esta es la otra forma exactamente igual
+      
+      // payload.forEach((product) => {
+      //   const exist = state.products.some(
+      //     (dbProduct) => dbProduct._id === product._id
+      //   );
+      //   if (!exist) {
+      //     state.products.push(product);
+      //   }
+      // });
     },
     onSetActiveProduct: (state, { payload = {} }) => {
 
@@ -55,4 +56,4 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { onLoadProducts, onSetActiveProduct, onDeleteProduct, onLoadProduct  } = productsSlice.actions;
+export const { onLoadProducts, onSetActiveProduct, onDeleteProduct, onAddNewProduct, onLoadProduct  } = productsSlice.actions;
