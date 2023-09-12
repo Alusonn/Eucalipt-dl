@@ -1,0 +1,15 @@
+.addCart {
+  background-color: #1b1a20;
+}
+.addCart:hover {
+  background-color: #c0a81d;
+  cursor: pointer;
+}
+
+.addCart div {
+  color: white;
+}
+
+.addCart div:hover {
+  color: #1d35c0;
+}
