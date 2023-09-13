@@ -24,74 +24,50 @@ export const AdminProduct = () => {
     active,
   } = products;
 
-  const [formValues, setFormValues] = useState({
-    
-  });
-
-  useEffect(() => {
-    if (products !== null) {
-      setFormValues(
-        name,
-        description,
-        type,
-        price,
-        sku,
-        sizes,
-        outstanding,
-        sold,
-        active
-      );
-    }
-  }, [products]);
-
-  const onInputChange = ({ target }) => {
-    setFormValues({
-      ...formValues,
-      [target.name]: target.value,
-    });
-  };
-
   return (
     <>
       <div className="row">
         <div className="col-4">
-          <input type="text" value={name} onChange={onInputChange} />
-          <input
-            type="text"
-            value={description}
-            onChange={onInputChange}
-          />
-          <input type="text" value={type} onChange={onInputChange} />
-          <input
-            type="number"
-            value={price}
-            onChange={onInputChange}
-          />
-          <input
-            type="number"
-            value={sku}
-            onChange={onInputChange}
-          />
-          <input
-            type="boolean"
-            value={outstanding}
-            onChange={onInputChange}
-          />
-          <input
-            type="boolean"
-            value={sold}
-            onChange={onInputChange}
-          />
-          <input
-            type="boolean"
-            value={active}
-            onChange={onInputChange}
-          />
-          <input
-            type="checkbox"
-            value={sizes}
-            onChange={onInputChange}
-          />
+          <div className="form-floating mb-3">
+            <label for>Nombre del producto:</label>
+            <input type="text" value={name} className="form-control" />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input type="text" className="form-control" />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input type="text" value={type} className="form-control" />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input type="number" value={price} className="form-control" />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input type="number" value={sku} className="form-control" />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input
+              type="boolean"
+              value={outstanding}
+              className="form-control"
+            />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input type="boolean" value={sold} className="form-control" />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input type="boolean" value={active} className="form-control" />
+          </div>
+          <div className="form-floating mb-3">
+            <label for>:</label>
+            <input type="checkbox" value={sizes} className="form-control" />
+          </div>
         </div>
         <div></div>
         <div className="col-8"></div>
