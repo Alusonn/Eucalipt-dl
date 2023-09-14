@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 export const TableProducts = () => {
   const { products, startLoadingProducts } = useProductsStore();
 
-  const dispatch = useDispatch()
 
   useEffect(() => {
     startLoadingProducts();

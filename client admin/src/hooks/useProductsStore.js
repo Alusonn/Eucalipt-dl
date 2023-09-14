@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { adminApi } from "../api/adminApi";
 import {
+  onCleanProducts,
   onDeleteProduct,
   onLoadProduct,
   onLoadProducts,
@@ -41,7 +42,7 @@ export const useProductsStore = () => {
   const startLoadingProduct = async(_id) => {
     try {
       const {data} = await adminApi.get(`/products/${_id}`);
-      dispatch(onLoadProduct(data));
+      await dispatch(onLoadProduct(data));
     } catch (error) {
       console.log(error);
     }

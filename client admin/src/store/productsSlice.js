@@ -18,7 +18,7 @@ export const productsSlice = createSlice({
   initialState: {
     isLoading: true,
     products: [],
-    activeProduct: null,
+    activeProduct: [],
   },
   reducers: {
     onLoadProducts: (state, { payload = [] }) => {
@@ -51,9 +51,12 @@ export const productsSlice = createSlice({
     },
     onLoadProduct: ( state, {payload = {}} ) => {
       state.isLoading = false,
-      state.products = payload
+      state.activeProduct = payload
+    },
+    onCleanProducts: (state) => {
+      state.products = []
     }
   },
 });
 
-export const { onLoadProducts, onSetActiveProduct, onDeleteProduct, onAddNewProduct, onLoadProduct  } = productsSlice.actions;
+export const { onLoadProducts, onSetActiveProduct, onDeleteProduct, onAddNewProduct, onLoadProduct, onCleanProducts  } = productsSlice.actions;

@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useProductsStore } from "../hooks/useProductsStore";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export const TableProduct = (props) => {
   const { name, price, sold, _id } = props;
@@ -18,9 +18,15 @@ export const TableProduct = (props) => {
     setActiveProduct(props);
   };
 
+  const handleOnDoubleClick = () => {
+    return <Link to={`/${_id}`}>Travellinggg</Link>;
+  };
+
+  const linkToEdit = () => {};
+
   return (
     <>
-      <tr onClick={handleOnClick}>
+      <tr onClick={handleOnClick} onDoubleClick={handleOnDoubleClick}>
         <th scope="row">{_id}</th>
         <td>{name}</td>
         <td>$ {price}</td>

@@ -18,7 +18,7 @@ export const AppRouter = () => {
       {authStatus === "authenticated" ? (
         <>
           <Route path="/" element={<AdminProducts />} />
-          <Route path="/:_id" element={<AdminProduct />} />
+          <Route path="/:id" element={<AdminProduct />} />
           <Route path="/nuevo-producto" element={<NewProduct />} />
         </>
       ) : (
