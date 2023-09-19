@@ -1,84 +1,136 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useProductsStore } from "../hooks/useProductsStore";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 export const AdminProduct = () => {
-  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  const { activeProduct, startLoadingProduct } = useProductsStore();
+  const { id } = useParams();
 
   useEffect(() => {
     startLoadingProduct(id);
   }, []);
+  const { startSavingProduct, activeProduct, startLoadingProduct } =
+    useProductsStore();
 
-  const {
-    name,
-    description,
-    type,
-    price,
-    sku,
-    sizes,
-    outstanding,
-    sold,
-    active,
-  } = activeProduct;
+  const { handleSubmit, register, setValue } = useForm({
+    defaultValues: activeProduct,
+  });
+
+  const { name, type, price, sku, sizes, outstanding, sold, active } =
+    activeProduct;
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  useEffect(() => {
+    if (activeProduct) {
+      setValue("name", activeProduct.name);
+      setValue("description", activeProduct.description);
+      setValue("type", activeProduct.type);
+      setValue("price", activeProduct.price);
+      setValue("sku", activeProduct.sku);
+      setValue("outstanding", activeProduct.outstanding);
+      setValue("sold", activeProduct.sold);
+      setValue("active", activeProduct.active);
+      setValue("sizes", activeProduct.sizes);
+    }
+  }, [activeProduct, setValue]);
 
   return (
     <>
-      <div className="row">
-        <div className="col-4">
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              value={name}
-              className="form-control"
-              id="floatingName"
-            />
-            <label htmlFor="floatingName">Nombre del producto:</label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="row">
+          <div className="col-4">
+            <div className="form-floating mb-3">
+              <input
+                className="form-control"
+                id="floatingName"
+                {...register("name")}
+              />
+              <label htmlFor="floatingName">Nombre del producto:</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                className="form-control"
+                id="floatingDescription"
+                {...register("description")}
+              />
+              <label htmlFor="floatingDescription">Description:</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                className="form-control"
+                id="floatingType"
+                {...register("type")}
+              />
+              <label htmlFor="floatingType">Tipo:</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                className="form-control"
+                type="number"
+                id="floatingPrice"
+                {...register("price")}
+              />
+              <label htmlFor="floatingPrice">Precio:</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                className="form-control"
+                type="number"
+                id="floatingSku"
+                {...register("sku")}
+              />
+              <label htmlFor="floatingSku">SKU:</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                type="radio"
+                id="floatingOutstanding"
+                {...register("outstanding")}
+              />
+              <label htmlFor="floatingOutstanding">Opcion:</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                type="boolean"
+                value={sold}
+                className="form-control"
+                id="floatingOutstanding"
+                placeholder="Vendido..."
+              />
+              <label htmlFor="floatingSold">sad</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                type="boolean"
+                value={active}
+                className="form-control"
+                id="floatingActive"
+                placeholder="Activo..."
+              />
+              <label htmlFor="floatingActive">Activo:</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                type="checkbox"
+                value={sizes}
+                className="form-control"
+                id="floatingSizes"
+                placeholder="Talle..."
+              />
+              <label htmlFor="floatingSizes">Talle:</label>
+            </div>
           </div>
-          <div className="form-floating mb-3">
-            <input type="text" className="form-control" id="floatingDescription" placeholder="Descripcion..."/>
-            <label htmlFor="floatingDescription">Description:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input type="text" value={type} className="form-control" id="floatingType" placeholder="Tipo..."/>
-            <label htmlFor="floatingType">Tipo:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input type="number" value={price} className="form-control" id="floatingPrice" placeholder="Precio..."/>
-            <label htmlFor="floatingPrice">Precio:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input type="number" value={sku} className="form-control" id="floatingSku" placeholder="sku"/>
-            <label htmlFor="floatingSku">SKU:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="boolean"
-              value={outstanding}
-              className="form-control"
-              placeholder="Destacado..."
-              id="floatingOutstanding"
-            />
-            <label htmlFor="floatingOutstanding">Destacado:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input type="boolean" value={sold} className="form-control" id="floatingSold" placeholder="Vendido..."/>
-            <label htmlFor="floatingSold">Vendido:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input type="boolean" value={active} className="form-control" id="floatingActive" placeholder="Activo..."/>
-            <label htmlFor="floatingActive">Activo:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input type="checkbox" value={sizes} className="form-control" id="floatingSizes" placeholder="Talle..."/>
-            <label htmlFor="floatingSizes">Talle:</label>
-          </div>
+          <div></div>
+          <div className="col-8"></div>
         </div>
-        <div></div>
-        <div className="col-8"></div>
-      </div>
+        <button type="submit">Enviar</button>
+      </form>
     </>
   );
 };

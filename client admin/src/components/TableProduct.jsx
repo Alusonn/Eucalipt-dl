@@ -8,10 +8,6 @@ export const TableProduct = (props) => {
 
   const { setActiveProduct, startDeletingProduct } = useProductsStore();
 
-  const handleDelete = () => {
-    startDeletingProduct(_id);
-  };
-
   const handleEdit = () => {};
 
   const handleOnClick = () => {
@@ -22,8 +18,9 @@ export const TableProduct = (props) => {
     return <Link to={`/${_id}`}>Travellinggg</Link>;
   };
 
-  const linkToEdit = () => {};
-
+  const handleDelete = async () => {
+    await startDeletingProduct(_id);
+  };
   return (
     <>
       <tr onClick={handleOnClick} onDoubleClick={handleOnDoubleClick}>

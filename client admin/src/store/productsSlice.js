@@ -23,8 +23,8 @@ export const productsSlice = createSlice({
   reducers: {
     onLoadProducts: (state, { payload = [] }) => {
       state.isLoading = false;
-      state.products = payload //Esta es la otra forma exactamente igual
-      
+      state.products = payload; //Esta es la otra forma exactamente igual
+
       // payload.forEach((product) => {
       //   const exist = state.products.some(
       //     (dbProduct) => dbProduct._id === product._id
@@ -35,28 +35,40 @@ export const productsSlice = createSlice({
       // });
     },
     onSetActiveProduct: (state, { payload = {} }) => {
-
-        state.isLoading = false,
-        state.activeProduct = payload
+      (state.isLoading = false), (state.activeProduct = payload);
     },
     onDeleteProduct: (state) => {
-        if (state.activeProduct) {
-            state.products = state.products.filter((product) => product._id !== state.activeProduct._id)
-        };
-        state.activeProduct = null
+      state.isLoading = false;
+      if (state.activeProduct) {
+        state.products = state.products.filter(
+          (product) => product._id !== state.activeProduct._id
+        );
+      }
+      state.activeProduct = null;
     },
-    onAddNewProduct: ( state, { payload } ) => {
-        state.products.push(payload);
-        state.activeProduct = null
+    onAddNewProduct: (state, { payload }) => {
+      state.isLoading = false;
+      state.products.push(payload);
+      state.activeProduct = null;
     },
-    onLoadProduct: ( state, {payload = {}} ) => {
-      state.isLoading = false,
-      state.activeProduct = payload
+    onLoadProduct: (state, { payload = {} }) => {
+      (state.isLoading = false), (state.activeProduct = payload);
     },
     onCleanProducts: (state) => {
-      state.products = []
-    }
+      state.products = [];
+    },
+    onLoadingProducts: (state) => {
+      state.isLoading = true;
+    },
   },
 });
 
-export const { onLoadProducts, onSetActiveProduct, onDeleteProduct, onAddNewProduct, onLoadProduct, onCleanProducts  } = productsSlice.actions;
+export const {
+  onLoadProducts,
+  onSetActiveProduct,
+  onDeleteProduct,
+  onAddNewProduct,
+  onLoadProduct,
+  onCleanProducts,
+  onLoadingProducts
+} = productsSlice.actions;
