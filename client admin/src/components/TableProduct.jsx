@@ -14,16 +14,14 @@ export const TableProduct = (props) => {
     setActiveProduct(props);
   };
 
-  const handleOnDoubleClick = () => {
-    return <Link to={`/${_id}`}>Travellinggg</Link>;
-  };
+  
 
   const handleDelete = async () => {
     await startDeletingProduct(_id);
   };
   return (
     <>
-      <tr onClick={handleOnClick} onDoubleClick={handleOnDoubleClick}>
+      <tr onClick={handleOnClick}>
         <th scope="row">{_id}</th>
         <td>{name}</td>
         <td>$ {price}</td>

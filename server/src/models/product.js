@@ -32,25 +32,27 @@ const productSchema = Schema(
       type: [String],
       required: true,
     },
-    image: {
-      public_id: String,
-      secure_url: String
-    },
+    image: [
+      {
+        public_id: String,
+        secure_url: String,
+      },
+    ],
     outstanding: {
       type: Boolean,
       default: false,
-      required: true
+      required: true,
     },
     sold: {
       type: Boolean,
       default: false,
-      required: true
+      required: true,
     },
     active: {
       type: Boolean,
       default: false,
-      required: true
-    }
+      required: true,
+    },
   },
   {
     timestamps: true,

@@ -9,7 +9,7 @@ export const TableProducts = () => {
 
   useEffect(() => {
     startLoadingProducts();
-  }, []);
+  }, [products]);
 
   return (
     <>

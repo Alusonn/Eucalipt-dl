@@ -32,7 +32,7 @@ export const getProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const { name, description, type, price, sku, sizes, outstanding, sold } =
+    const { name, description, type, price, sku, sizes, outstanding, sold, active } =
       req.body;
 
     const product = new Product({
@@ -44,6 +44,7 @@ export const createProduct = async (req, res) => {
       sizes,
       outstanding,
       sold,
+      active
     });
 
 

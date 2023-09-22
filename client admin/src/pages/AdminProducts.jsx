@@ -1,3 +1,4 @@
+import { FabAddNewProduct } from "../components/FabAddNewProduct";
 import { TableProducts } from "../components/TableProducts";
 
 export const AdminProducts = () => {
@@ -12,6 +13,7 @@ export const AdminProducts = () => {
       <div className="container">
         <TableProducts />
       </div>
+      <FabAddNewProduct />
     </>
   );
 };
