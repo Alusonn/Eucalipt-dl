@@ -60,6 +60,18 @@ export const productsSlice = createSlice({
     onLoadingProducts: (state) => {
       state.isLoading = true;
     },
+    onUpdateProduct: (state, { payload }) => {
+      state.products = state.products.map((product) => {
+        if (product._id === payload.id) {
+          return payload;
+        }
+        return product;
+      });
+    },
+    onCreateProduct: (state, { payload }) => {
+      state.products.push(payload)
+      state.activeProduct = {}
+    },
   },
 });
 
@@ -70,5 +82,7 @@ export const {
   onAddNewProduct,
   onLoadProduct,
   onCleanProducts,
-  onLoadingProducts
+  onLoadingProducts,
+  onUpdateProduct,
+  onCreateProduct,
 } = productsSlice.actions;

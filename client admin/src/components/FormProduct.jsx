@@ -2,19 +2,25 @@ import React, { useEffect } from "react";
 import { useProductsStore } from "../hooks/useProductsStore";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const FormProduct = () => {
   const dispatch = useDispatch();
 
-  const { activeProduct } = useProductsStore();
+  const navigate = useNavigate();
+
+  const { activeProduct, startSavingProduct } = useProductsStore();
 
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: { ...activeProduct },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     event.preventDefault();
-    console.log(data);
+
+    await startSavingProduct(data);
+
+    navigate("/");
   };
 
   useEffect(() => {
@@ -45,7 +51,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingName"
-              {...register("name")}
+              {...register("name", {required: true, minLength: 3,})}
             />
             <label htmlFor="floatingName">Nombre del producto:</label>
           </div>
@@ -53,7 +59,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingDescription"
-              {...register("description")}
+              {...register("description", {required: true, minLength: 3,})}
             />
             <label htmlFor="floatingDescription">Description:</label>
           </div>
@@ -61,7 +67,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingType"
-              {...register("type")}
+              {...register("type", {required: true, minLength: 3,})}
             />
             <label htmlFor="floatingType">Tipo:</label>
           </div>
@@ -70,7 +76,9 @@ export const FormProduct = () => {
               className="form-control"
               type="number"
               id="floatingPrice"
-              {...register("price")}
+              {...register("price", {required: true
+              
+              })}
             />
             <label htmlFor="floatingPrice">Precio:</label>
           </div>
@@ -111,7 +119,7 @@ export const FormProduct = () => {
               id="floatingActive"
               type="checkbox"
               role="switch"
-              {...register("active", { value: false })}
+              {...register("active", { value: true })}
             />
             <label className="form-check-label" htmlFor="floatingActive">
               Activo:

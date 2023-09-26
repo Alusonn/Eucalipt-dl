@@ -2,11 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { adminApi } from "../api/adminApi";
 import {
   onCleanProducts,
+  onCreateProduct,
   onDeleteProduct,
   onLoadProduct,
   onLoadProducts,
   onLoadingProducts,
   onSetActiveProduct,
+  onUpdateProduct,
 } from "../store/productsSlice";
 
 export const useProductsStore = () => {
@@ -49,9 +51,30 @@ export const useProductsStore = () => {
     }
   };
 
-  const startSavingProduct = async (data) => {
+  const startSavingProduct = async (product) => {
+    const id = product._id;
+
     try {
-      console.log("saving");
+      if (id) {
+
+        const {data} = await adminApi.put(`/products/${id}`, product);
+
+        dispatch(onUpdateProduct({ ...product }));
+
+
+
+        console.log(data);
+        console.log({...product})
+
+
+      } else {
+
+        const {data} = await adminApi.post("/products", product);
+
+        dispatch(onCreateProduct({ ...product }));
+
+        console.log(data);
+      }
     } catch (error) {
       console.log(error);
     }
