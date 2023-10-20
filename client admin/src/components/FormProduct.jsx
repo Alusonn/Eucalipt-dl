@@ -51,7 +51,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingName"
-              {...register("name", {required: true, minLength: 3,})}
+              {...register("name", { required: true, minLength: 3 })}
             />
             <label htmlFor="floatingName">Nombre del producto:</label>
           </div>
@@ -59,7 +59,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingDescription"
-              {...register("description", {required: true, minLength: 3,})}
+              {...register("description", { required: true, minLength: 3 })}
             />
             <label htmlFor="floatingDescription">Description:</label>
           </div>
@@ -67,7 +67,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingType"
-              {...register("type", {required: true, minLength: 3,})}
+              {...register("type", { required: true, minLength: 1 })}
             />
             <label htmlFor="floatingType">Tipo:</label>
           </div>
@@ -76,9 +76,7 @@ export const FormProduct = () => {
               className="form-control"
               type="number"
               id="floatingPrice"
-              {...register("price", {required: true
-              
-              })}
+              {...register("price", { required: true })}
             />
             <label htmlFor="floatingPrice">Precio:</label>
           </div>
