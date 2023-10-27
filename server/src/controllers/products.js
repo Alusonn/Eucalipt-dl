@@ -49,6 +49,9 @@ export const createProduct = async (req, res) => {
 
 
     if (req.files?.image) {
+
+      console.log(req.files.image)
+
       const { public_id, secure_url } = await uploadImage(
         req.files.image.tempFilePath
       );
@@ -59,6 +62,8 @@ export const createProduct = async (req, res) => {
 
       await unlink(req.files.image.tempFilePath);
     }
+
+
 
     await product.save();
 

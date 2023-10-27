@@ -63,7 +63,7 @@ export const useProductsStore = () => {
 
 
 
-        console.log(data);
+
         console.log({...product})
 
 
@@ -71,14 +71,31 @@ export const useProductsStore = () => {
 
         const {data} = await adminApi.post("/products", product);
 
+
+
         dispatch(onCreateProduct({ ...product }));
 
-        console.log(data);
+        console.log({...product});
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const startUploadingFiles = (files = []) => {
+    try {
+
+      const fileUploadPromises = []
+
+      for ( const file of files ) {
+        fileUploadPromises.push(  )
+      }
+
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return {
     // Propiedades

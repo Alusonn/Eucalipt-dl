@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useProductsStore } from "../hooks/useProductsStore";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -15,34 +15,11 @@ export const FormProduct = () => {
     defaultValues: { ...activeProduct },
   });
 
-  const [selectedImage, setSelectedImage] = useState(null)
+  const onSubmit = async (data) => {
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0]
-    setSelectedImage(file)
-  }
+    await startSavingProduct(data);
 
 
-  const onSubmit = async(data) => {
-
-    const formData = new FormData();
-
-    if (selectedImage) {
-      formData.append("image", selectedImage);
-    }
-
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("type", data.type);
-    formData.append("price", data.price);
-    formData.append("sku", data.sku);
-    formData.append("outstanding", data.outstanding);
-    formData.append("sold", data.sold);
-    formData.append("active", data.active);
-    formData.append("sizes", data.sizes);
-
-
-    await startSavingProduct(formData);
 
     navigate("/");
   };
@@ -58,6 +35,7 @@ export const FormProduct = () => {
       setValue("sold", activeProduct.sold);
       setValue("active", activeProduct.active);
       setValue("sizes", activeProduct.sizes);
+      setValue("image", activeProduct.image)
     }
   }, [activeProduct, setValue]);
 
@@ -202,7 +180,6 @@ export const FormProduct = () => {
               className="form-control"
               id="uploadFiles"
               {...register("image")}
-              onChange={ handleImageChange }
             />
           </div>
           <button type="submit">Enviar</button>

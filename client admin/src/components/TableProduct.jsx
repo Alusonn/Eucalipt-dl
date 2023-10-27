@@ -14,8 +14,6 @@ export const TableProduct = (props) => {
     setActiveProduct(props);
   };
 
-  
-
   const handleDelete = async () => {
     await startDeletingProduct(_id);
   };
