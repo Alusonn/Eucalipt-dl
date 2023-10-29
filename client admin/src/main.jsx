@@ -1,10 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { EucaliptoApp } from "./EucaliptoApp";
-import "./css/styles.css"
+import "./css/styles.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <EucaliptoApp />
-  </React.StrictMode>
-);
+ReactDOM.createRoot(document.getElementById("root")).render(<EucaliptoApp />);

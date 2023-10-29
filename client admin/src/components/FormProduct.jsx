@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useProductsStore } from "../hooks/useProductsStore";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const FormProduct = () => {
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -15,13 +13,13 @@ export const FormProduct = () => {
     defaultValues: { ...activeProduct },
   });
 
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0]
-    setSelectedImage(file)
-  }
+    const files = event.target.files[0];
 
+    setSelectedImage(files);
+  };
 
   const onSubmit = async(data) => {
 
@@ -36,11 +34,12 @@ export const FormProduct = () => {
     formData.append("type", data.type);
     formData.append("price", data.price);
     formData.append("sku", data.sku);
-    formData.append("outstanding", data.outstanding);
-    formData.append("sold", data.sold);
-    formData.append("active", data.active);
+    formData.append("outstanding", !!data.outstanding);
+    formData.append("sold", !!data.sold);
+    formData.append("active", !!data.active);
     formData.append("sizes", data.sizes);
 
+    
 
     await startSavingProduct(formData);
 
@@ -60,8 +59,6 @@ export const FormProduct = () => {
       setValue("sizes", activeProduct.sizes);
     }
   }, [activeProduct, setValue]);
-
-  
 
   return (
     <>
@@ -116,7 +113,7 @@ export const FormProduct = () => {
               className="form-check-input"
               type="checkbox"
               id="floatingOutstanding"
-              {...register("outstanding", { value: false })}
+              {...register("outstanding")}
             />
             <label className="form-check-label" htmlFor="floatingOutstanding">
               Destacado:
@@ -127,7 +124,7 @@ export const FormProduct = () => {
               type="checkbox"
               className="form-check-input"
               id="floatingSold"
-              {...register("sold", { value: false })}
+              {...register("sold")}
             />
             <label htmlFor="floatingSold">Sold</label>
           </div>
@@ -137,7 +134,7 @@ export const FormProduct = () => {
               id="floatingActive"
               type="checkbox"
               role="switch"
-              {...register("active", { value: true })}
+              {...register("active")}
             />
             <label className="form-check-label" htmlFor="floatingActive">
               Activo:
@@ -151,7 +148,7 @@ export const FormProduct = () => {
               value="S"
               className="form-check-input"
               id="sizeS"
-              {...register("sizes", { value: false })}
+              {...register("sizes", {value: false})}
             />
             <label className="form-check-label" htmlFor="sizeS">
               S
@@ -163,9 +160,9 @@ export const FormProduct = () => {
               value="M"
               className="form-check-input"
               id="sizeM"
-              {...register("sizes", { value: false })}
+              {...register("sizes", {value: false})}
             />
-            <label className="form-check-label" htmlFor="sizeS">
+            <label className="form-check-label" htmlFor="sizeM">
               M
             </label>
           </div>
@@ -175,9 +172,9 @@ export const FormProduct = () => {
               value="L"
               className="form-check-input"
               id="sizeL"
-              {...register("sizes", { value: false })}
+              {...register("sizes", {value: false})}
             />
-            <label className="form-check-label" htmlFor="sizeS">
+            <label className="form-check-label" htmlFor="sizeL">
               L
             </label>
           </div>
@@ -187,9 +184,9 @@ export const FormProduct = () => {
               value="XL"
               className="form-check-input"
               id="sizeXL"
-              {...register("sizes", { value: false })}
+              {...register("sizes", {value: false})}
             />
-            <label className="form-check-label" htmlFor="sizeS">
+            <label className="form-check-label" htmlFor="sizeXL">
               XL
             </label>
           </div>
@@ -201,8 +198,9 @@ export const FormProduct = () => {
               type="file"
               className="form-control"
               id="uploadFiles"
+              multiple
               {...register("image")}
-              onChange={ handleImageChange }
+              onChange={handleImageChange}
             />
           </div>
           <button type="submit">Enviar</button>

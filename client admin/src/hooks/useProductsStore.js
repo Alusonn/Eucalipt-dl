@@ -33,9 +33,13 @@ export const useProductsStore = () => {
     }
   };
 
-  const startDeletingProduct = async (_id) => {
+  const startDeletingProduct = async (props) => {
     try {
-      await adminApi.delete(`/products/${_id}`);
+      const data = {
+        image1: props.image[0].public_id
+      };
+
+      await adminApi.delete(`/products/${props._id}`, { data });
       dispatch(onDeleteProduct());
     } catch (error) {
       console.log(error);
@@ -56,46 +60,22 @@ export const useProductsStore = () => {
 
     try {
       if (id) {
-
-        const {data} = await adminApi.put(`/products/${id}`, product);
+        const { data } = await adminApi.put(`/products/${id}`, product);
 
         dispatch(onUpdateProduct({ ...product }));
 
-
-
-
-        console.log({...product})
-
-
+        console.log(data);
       } else {
-
-        const {data} = await adminApi.post("/products", product);
-
-
+        const { data } = await adminApi.post("/products", product);
 
         dispatch(onCreateProduct({ ...product }));
 
-        console.log({...product});
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  const startUploadingFiles = (files = []) => {
-    try {
-
-      const fileUploadPromises = []
-
-      for ( const file of files ) {
-        fileUploadPromises.push(  )
-      }
-
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return {
     // Propiedades
