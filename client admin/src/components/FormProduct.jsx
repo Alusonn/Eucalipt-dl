@@ -1,64 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useProductsStore } from "../hooks/useProductsStore";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 export const FormProduct = () => {
-
   const navigate = useNavigate();
 
   const { activeProduct, startSavingProduct } = useProductsStore();
 
-  const { handleSubmit, register, setValue } = useForm({
-    defaultValues: { ...activeProduct },
-  });
+  const { handleSubmit, register, control } = useForm();
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(
+    activeProduct ? activeProduct.image : null
+  );
 
   const handleImageChange = (event) => {
-    const files = event.target.files[0];
+    const file = event.target.files[0];
 
-    setSelectedImage(files);
+    console.log(file);
+
+    setSelectedImage(file);
   };
 
-  const onSubmit = async(data) => {
-
-    const formData = new FormData();
-
-    if (selectedImage) {
-      formData.append("image", selectedImage);
-    }
-
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("type", data.type);
-    formData.append("price", data.price);
-    formData.append("sku", data.sku);
-    formData.append("outstanding", !!data.outstanding);
-    formData.append("sold", !!data.sold);
-    formData.append("active", !!data.active);
-    formData.append("sizes", data.sizes);
-
-    
-
-    await startSavingProduct(formData);
+  const onSubmit = async (data) => {
+    await startSavingProduct(data);
 
     navigate("/");
   };
-
-  useEffect(() => {
-    if (activeProduct) {
-      setValue("name", activeProduct.name);
-      setValue("description", activeProduct.description);
-      setValue("type", activeProduct.type);
-      setValue("price", activeProduct.price);
-      setValue("sku", activeProduct.sku);
-      setValue("outstanding", activeProduct.outstanding);
-      setValue("sold", activeProduct.sold);
-      setValue("active", activeProduct.active);
-      setValue("sizes", activeProduct.sizes);
-    }
-  }, [activeProduct, setValue]);
 
   return (
     <>
@@ -148,7 +116,7 @@ export const FormProduct = () => {
               value="S"
               className="form-check-input"
               id="sizeS"
-              {...register("sizes", {value: false})}
+              {...register("sizes", { value: false })}
             />
             <label className="form-check-label" htmlFor="sizeS">
               S
@@ -160,47 +128,72 @@ export const FormProduct = () => {
               value="M"
               className="form-check-input"
               id="sizeM"
-              {...register("sizes", {value: false})}
+              {...register("sizes", { value: false })}
             />
             <label className="form-check-label" htmlFor="sizeM">
               M
             </label>
           </div>
           <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              value="L"
-              className="form-check-input"
-              id="sizeL"
-              {...register("sizes", {value: false})}
+            <Controller
+              name="sizes"
+              control={control}
+              defaultValue={activeProduct.sizes?.includes("L") || false}
+              render={({ field }) => (
+                <>
+                  <input
+                    type="checkbox"
+                    value="L"
+                    className="form-check-input"
+                    id="sizeL"
+                    {...field}
+                  />
+                  <label className="form-check-label" htmlFor="sizeL">
+                    L
+                  </label>
+                </>
+              )}
             />
-            <label className="form-check-label" htmlFor="sizeL">
-              L
-            </label>
           </div>
           <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              value="XL"
-              className="form-check-input"
-              id="sizeXL"
-              {...register("sizes", {value: false})}
+            <Controller
+              name="sizes"
+              control={control}
+              defaultValue={
+                activeProduct ? activeProduct.sizes.includes("XL") : false
+              }
+              render={({ field }) => (
+                <>
+                  <input
+                    type="checkbox"
+                    value="XL"
+                    className="form-check-input"
+                    id="sizeXL"
+                    {...field}
+                  />
+                  <label className="form-check-label" htmlFor="sizeXL">
+                    XL
+                  </label>
+                </>
+              )}
             />
-            <label className="form-check-label" htmlFor="sizeXL">
-              XL
-            </label>
           </div>
           <div className="mb-3">
             <label className="form-label" htmlFor="uploadFiles">
               Imagenes
             </label>
-            <input
-              type="file"
-              className="form-control"
-              id="uploadFiles"
-              multiple
-              {...register("image")}
-              onChange={handleImageChange}
+            <Controller
+              name="image"
+              control={control}
+              defaultValue={activeProduct ? activeProduct.image : null}
+              render={({ field }) => (
+                <input
+                  type="file"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  {...field}
+                />
+              )}
             />
           </div>
           <button type="submit">Enviar</button>
