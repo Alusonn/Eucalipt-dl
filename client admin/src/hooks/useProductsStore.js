@@ -51,8 +51,10 @@ export const useProductsStore = () => {
     }
   };
 
-  const startSavingProduct = async (product) => {
+  const startSavingProduct = async (product, image) => {
     const id = product._id;
+
+    console.log(image)
 
     try {
       if (id) {

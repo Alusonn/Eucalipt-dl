@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useProductsStore } from "../hooks/useProductsStore";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -15,12 +15,30 @@ export const FormProduct = () => {
     defaultValues: { ...activeProduct },
   });
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = async({target}) => {
+    const file = target.files[0];
+
+    setSelectedImage(file);
+
+  };
+  
+
   const onSubmit = async (data) => {
     event.preventDefault();
 
-    await startSavingProduct(data);
+    if (data) {
+      // Realiza el "push" al array dentro de data
+      data.push(selectedImage);
 
-    navigate("/");
+      // Luego puedes continuar con el resto del código
+      await startSavingProduct(data);
+
+      navigate("/");
+  } else {
+      console.error("La propiedad 'productos' no es un array en el objeto 'data'.");
+  }
   };
 
   useEffect(() => {
@@ -37,12 +55,6 @@ export const FormProduct = () => {
     }
   }, [activeProduct, setValue]);
 
-  const onFileInputChange = ({ target }) => {
-    if (target.files === 0) return;
-
-    dispatch(start);
-  };
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="row">
@@ -51,7 +63,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingName"
-              {...register("name", {required: true, minLength: 3,})}
+              {...register("name", { required: true, minLength: 3 })}
             />
             <label htmlFor="floatingName">Nombre del producto:</label>
           </div>
@@ -59,7 +71,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingDescription"
-              {...register("description", {required: true, minLength: 3,})}
+              {...register("description", { required: true, minLength: 3 })}
             />
             <label htmlFor="floatingDescription">Description:</label>
           </div>
@@ -67,7 +79,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingType"
-              {...register("type", {required: true, minLength: 3,})}
+              {...register("type", { required: true, minLength: 3 })}
             />
             <label htmlFor="floatingType">Tipo:</label>
           </div>
@@ -76,9 +88,7 @@ export const FormProduct = () => {
               className="form-control"
               type="number"
               id="floatingPrice"
-              {...register("price", {required: true
-              
-              })}
+              {...register("price", { required: true })}
             />
             <label htmlFor="floatingPrice">Precio:</label>
           </div>
@@ -183,8 +193,7 @@ export const FormProduct = () => {
               type="file"
               className="form-control"
               id="uploadFiles"
-              multiple
-              onChange={onFileInputChange}
+              onChange={handleImageChange}
             />
           </div>
           <button type="submit">Enviar</button>
