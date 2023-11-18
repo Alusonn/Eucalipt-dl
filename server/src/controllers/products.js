@@ -56,19 +56,32 @@ export const createProduct = async (req, res) => {
       active,
     });
 
-    console.log(req.files.image)
-
     if (req.files?.image) {
-      const { public_id, secure_url } = await uploadImage(
+      const { public_id, secure_url, id } = await uploadImage(
         req.files.image.tempFilePath
       );
       product.image = {
         public_id,
         secure_url,
+        id
       };
 
       await unlink(req.files.image.tempFilePath);
     }
+
+
+
+    // if (req.files?.image) {
+    //   const { public_id, secure_url } = await uploadImage(
+    //     req.files.image.tempFilePath
+    //   );
+    //   product.image = {
+    //     public_id,
+    //     secure_url,
+    //   };
+
+    //   await unlink(req.files.image.tempFilePath);
+    // }
 
     await product.save();
 

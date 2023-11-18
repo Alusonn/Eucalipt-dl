@@ -17,28 +17,33 @@ export const FormProduct = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleImageChange = async({target}) => {
-    const file = target.files[0];
-
-    setSelectedImage(file);
-
-  };
-  
-
-  const onSubmit = async (data) => {
+  const handleImageChange = async (event) => {
     event.preventDefault();
 
-    if (data) {
-      // Realiza el "push" al array dentro de data
-      data.push(selectedImage);
+    const file = await event.target.files[0];
 
-      // Luego puedes continuar con el resto del código
-      await startSavingProduct(data);
 
-      navigate("/");
-  } else {
-      console.error("La propiedad 'productos' no es un array en el objeto 'data'.");
-  }
+    setSelectedImage(file);
+  };
+
+  const onSubmit = async (data) => {
+
+    const formData = new FormData()
+
+    formData.append('name', data.name)
+    formData.append('description', data.description)
+    formData.append('type', data.type)
+    formData.append('price', data.price)
+    formData.append('sku', data.sku)
+    formData.append('outstanding', data.outstanding !== undefined ? data.outstanding : false)
+    formData.append('sold', data.sold !== undefined ? data.sold : false);
+    formData.append('active', data.active !== undefined ? data.sold : false)
+    formData.append('sizes', data.sizes)
+    formData.append('image', selectedImage)
+
+    await startSavingProduct(formData);
+
+    navigate("/");
   };
 
   useEffect(() => {

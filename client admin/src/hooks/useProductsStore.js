@@ -51,15 +51,14 @@ export const useProductsStore = () => {
     }
   };
 
-  const startSavingProduct = async (product, image) => {
+  const startSavingProduct = async (product, selectedImage) => {
     const id = product._id;
 
-    console.log(image)
 
     try {
       if (id) {
 
-        const {data} = await adminApi.put(`/products/${id}`, product);
+        const {data} = await adminApi.put(`/products/${id}`, product, selectedImage);
 
         dispatch(onUpdateProduct({ ...product }));
 
@@ -71,7 +70,7 @@ export const useProductsStore = () => {
 
       } else {
 
-        const {data} = await adminApi.post("/products", product);
+        const {data} = await adminApi.post("/products", product, selectedImage);
 
         dispatch(onCreateProduct({ ...product }));
 

@@ -35,6 +35,7 @@ const productSchema = Schema(
     image: {
       public_id: String,
       secure_url: String,
+      id: String
     },
 
     outstanding: {
