@@ -22,26 +22,12 @@ export const FormProduct = () => {
 
     const file = await event.target.files[0];
 
-
     setSelectedImage(file);
+
   };
 
   const onSubmit = async (data) => {
-
-    const formData = new FormData()
-
-    formData.append('name', data.name)
-    formData.append('description', data.description)
-    formData.append('type', data.type)
-    formData.append('price', data.price)
-    formData.append('sku', data.sku)
-    formData.append('outstanding', data.outstanding !== undefined ? data.outstanding : false)
-    formData.append('sold', data.sold !== undefined ? data.sold : false);
-    formData.append('active', data.active !== undefined ? data.sold : false)
-    formData.append('sizes', data.sizes)
-    formData.append('image', selectedImage)
-
-    await startSavingProduct(formData);
+    await startSavingProduct(data);
 
     navigate("/");
   };
@@ -62,7 +48,11 @@ export const FormProduct = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="row">
+      <form
+        onSubmit={handleSubmit(onSubmit) }
+        className="row"
+        encType="multipart/form-data"
+      >
         <div className="col-6">
           <div className="form-floating mb-3">
             <input
@@ -199,6 +189,7 @@ export const FormProduct = () => {
               className="form-control"
               id="uploadFiles"
               onChange={handleImageChange}
+              {...register("image", { required: false })}
             />
           </div>
           <button type="submit">Enviar</button>

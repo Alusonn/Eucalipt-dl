@@ -56,6 +56,8 @@ export const createProduct = async (req, res) => {
       active,
     });
 
+    console.log(req.files)
+
     if (req.files?.image) {
       const { public_id, secure_url, id } = await uploadImage(
         req.files.image.tempFilePath
@@ -95,6 +97,8 @@ export const createProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   try {
+
+
     const { image } = await Product.findById(req.params.id);
 
 
