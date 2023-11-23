@@ -65,6 +65,7 @@ export const useProductsStore = () => {
         dispatch(onUpdateProduct({ ...product }));
 
         console.log(data);
+        console.log({ ...product });
       } else {
         const { data } = await adminApi.post("/products", product);
 

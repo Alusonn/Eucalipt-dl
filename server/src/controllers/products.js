@@ -56,17 +56,34 @@ export const createProduct = async (req, res) => {
       active,
     });
 
+    console.log(req.files)
+
     if (req.files?.image) {
-      const { public_id, secure_url } = await uploadImage(
+      const { public_id, secure_url, id } = await uploadImage(
         req.files.image.tempFilePath
       );
       product.image = {
         public_id,
         secure_url,
+        id
       };
 
       await unlink(req.files.image.tempFilePath);
     }
+
+
+
+    // if (req.files?.image) {
+    //   const { public_id, secure_url } = await uploadImage(
+    //     req.files.image.tempFilePath
+    //   );
+    //   product.image = {
+    //     public_id,
+    //     secure_url,
+    //   };
+
+    //   await unlink(req.files.image.tempFilePath);
+    // }
 
     await product.save();
 
@@ -81,20 +98,19 @@ export const createProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
 
-    const { image1 } = req.body
 
-    const { id } = req.params
+    const { image } = await Product.findById(req.params.id);
 
-    const product = await Product.findByIdAndDelete(id);
+
+    image.public_id && await deleteImage(image.public_id);
+
+    const product = await Product.findByIdAndDelete(req.params.id);
 
     if (!product)
       return res.status(404).json({
         message: "Producto no se puede eliminar porque no existe",
       });
 
-    if (image1) {
-      await deleteImage(image1);
-    }
 
     return res.json(product);
   } catch (error) {

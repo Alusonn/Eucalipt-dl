@@ -15,33 +15,17 @@ export const FormProduct = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleImageChange = (event) => {
-    const files = event.target.files[0];
+  const handleImageChange = async (event) => {
+    event.preventDefault();
 
-    setSelectedImage(files);
+    const file = await event.target.files[0];
+
+    setSelectedImage(file);
+
   };
 
-  const onSubmit = async(data) => {
-
-    const formData = new FormData();
-
-    if (selectedImage) {
-      formData.append("image", selectedImage);
-    }
-
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("type", data.type);
-    formData.append("price", data.price);
-    formData.append("sku", data.sku);
-    formData.append("outstanding", !!data.outstanding);
-    formData.append("sold", !!data.sold);
-    formData.append("active", !!data.active);
-    formData.append("sizes", data.sizes);
-
-    
-
-    await startSavingProduct(formData);
+  const onSubmit = async (data) => {
+    await startSavingProduct(data);
 
     navigate("/");
   };
@@ -62,7 +46,11 @@ export const FormProduct = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="row">
+      <form
+        onSubmit={handleSubmit(onSubmit) }
+        className="row"
+        encType="multipart/form-data"
+      >
         <div className="col-6">
           <div className="form-floating mb-3">
             <input
@@ -84,7 +72,7 @@ export const FormProduct = () => {
             <input
               className="form-control"
               id="floatingType"
-              {...register("type", { required: true, minLength: 1 })}
+              {...register("type", { required: true, minLength: 3 })}
             />
             <label htmlFor="floatingType">Tipo:</label>
           </div>
@@ -198,9 +186,8 @@ export const FormProduct = () => {
               type="file"
               className="form-control"
               id="uploadFiles"
-              multiple
-              {...register("image")}
               onChange={handleImageChange}
+              {...register("image", { required: false })}
             />
           </div>
           <button type="submit">Enviar</button>

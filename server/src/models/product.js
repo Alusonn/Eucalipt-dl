@@ -32,12 +32,12 @@ const productSchema = Schema(
       type: [String],
       required: true,
     },
-    image: [
-      {
-        public_id: String,
-        secure_url: String,
-      },
-    ],
+    image: {
+      public_id: String,
+      secure_url: String,
+      id: String
+    },
+
     outstanding: {
       type: Boolean,
       default: false,
