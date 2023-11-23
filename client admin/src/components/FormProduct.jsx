@@ -37,11 +37,12 @@ export const FormProduct = () => {
     formData.append('sku', data.sku)
     formData.append('outstanding', data.outstanding !== undefined ? data.outstanding : false)
     formData.append('sold', data.sold !== undefined ? data.sold : false);
-    formData.append('active', data.active !== undefined ? data.sold : false)
+    formData.append('active', data.active !== undefined ? data.active : false)
     formData.append('sizes', data.sizes)
     formData.append('image', selectedImage)
 
     await startSavingProduct(formData);
+    console.log(formata)
 
     navigate("/");
   };
