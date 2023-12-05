@@ -1,9 +1,11 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { cartUiSlice } from "./cartUiSlice";
+import { productsSlice } from "./productsSlice";
 
 export const store = configureStore({
   reducer: {
-    cartUiSlice: cartUiSlice.reducer,
+    cartUi: cartUiSlice.reducer,
+    products: productsSlice.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
