@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onLoadProducts } from "../store/productsSlice";
+import { onFilteredProducts, onLoadProducts } from "../store/productsSlice";
 import { adminApi } from "../api/adminApi";
 import axios from "axios";
 
@@ -18,6 +18,19 @@ export const useProductStore = () => {
     }
   };
 
+  const startFilteredProducts = async (selectedSize) => {
+    try {
+      const filtered = await products.filter(
+        (product) => product.sizes === selectedSize
+      );
+      dispatch(onFilteredProducts(filtered));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const startSelectSize = async()
+
   return {
     //  Propiedades
 
@@ -27,5 +40,6 @@ export const useProductStore = () => {
     // Metodos
 
     startLoadingProducts,
+    startFilteredProducts,
   };
 };
