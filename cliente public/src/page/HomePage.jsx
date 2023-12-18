@@ -4,11 +4,14 @@ import { ProductList } from "../components/ProductList";
 import { useProductStore } from "../hooks/useProductsStore";
 
 export const HomePage = () => {
-  const { products, startLoadingProducts, startFilteredProducts } =
-    useProductStore();
+  const {
+    products,
+    startLoadingProducts,
+    startFilteredProducts,
+    startSelectingSize,
+    selectedSize,
+  } = useProductStore();
 
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [filteredProducts, setFilteredProducts] = useState(products);
   useEffect(() => {
     const fetchData = async () => {
       await startLoadingProducts();
@@ -17,23 +20,17 @@ export const HomePage = () => {
     fetchData();
   }, []);
 
-  const handleChange = (event) => {
-    setSelectedSize(event.target.value);
+  const handleChange = async (event) => {
+    const selectSize = event.target.value;
+    await startSelectingSize(selectSize);
+    const filteredProducts = selectedSize
+      ? products.filter((product) => product.size !== selectedSize)
+      : products;
+      
+    startFilteredProducts(filteredProducts);
   };
-  useEffect(() => {
-    if (selectedSize) {
-      const fetchFilteredProducts = async () => {
-        const filtered = await startFilteredProducts(selectedSize);
-        setFilteredProducts(filtered);
-      };
-      fetchFilteredProducts();
-    } else {
-      setFilteredProducts(products);
-    }
-  }, [selectedSize, products]);
 
-  const result = filteredProducts
-  console.log(result);
+
 
   // const filteredData = (products, selected) => {
 
