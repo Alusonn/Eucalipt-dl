@@ -1,11 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onFilteredProducts,
-  onLoadProducts,
-  onSelectSize,
-} from "../store/productsSlice";
+import { onFilteredProducts, onLoadProducts, onSelectSize } from "../store/productsSlice";
 import { adminApi } from "../api/adminApi";
-import axios from "axios";
 
 export const useProductStore = () => {
   const dispatch = useDispatch();
@@ -24,20 +19,16 @@ export const useProductStore = () => {
     }
   };
 
-  const startSelectingSize = async (selectSize) => {
+  const startFilteredProducts = async (selectSize) => {
     try {
-      dispatch(onSelectSize(selectSize));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const startFilteredProducts = async (filteredProducts) => {
-    try {
-      let data = await filteredProducts;
+      dispatch(onSelectSize(selectSize))
 
-      console.log(data)
-      dispatch(onFilteredProducts(data));
+      const filter = await products.filter((product) =>
+        product.sizes.includes(`${selectSize}`)
+      );
+
+      dispatch(onFilteredProducts(filter));
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +43,6 @@ export const useProductStore = () => {
 
     // Metodos
 
-    startSelectingSize,
     startLoadingProducts,
     startFilteredProducts,
   };

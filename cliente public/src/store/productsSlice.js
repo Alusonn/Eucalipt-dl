@@ -16,12 +16,11 @@ export const productsSlice = createSlice({
     onSelectSize: (state, { payload }) => {
       state.isLoading = true;
       state.selectedSize = payload;
-      state.products = []
     },
-    onFilteredProducts: (state, { payload = [] }) => {
+    onFilteredProducts: (state, { payload }) => {
+      console.log("filter", payload);
       state.isLoading = false;
       state.products = payload;
-      state.activeProduct = payload
     },
   },
 });

@@ -4,13 +4,10 @@ import { ProductList } from "../components/ProductList";
 import { useProductStore } from "../hooks/useProductsStore";
 
 export const HomePage = () => {
-  const {
-    products,
-    startLoadingProducts,
-    startFilteredProducts,
-    startSelectingSize,
-    selectedSize,
-  } = useProductStore();
+  const { products, startLoadingProducts, startFilteredProducts } =
+    useProductStore();
+
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,17 +18,26 @@ export const HomePage = () => {
   }, []);
 
   const handleChange = async (event) => {
+    await startLoadingProducts();
     const selectSize = event.target.value;
-    await startSelectingSize(selectSize);
-    const filteredProducts = selectedSize
-      ? products.filter((product) => product.size !== selectedSize)
-      : products;
-      
-    startFilteredProducts(filteredProducts);
+    setSelectedSize(selectSize);
   };
 
+  const filteredData = () => {
+    if (selectedSize) {
+      const result = products.filter((product) =>
+        product.sizes.includes(`${selectedSize}`)
+      );
 
+      return result;
+    } else {
+      selectedSize === null;
+      const result = products.map((product) => product);
+      return result;
+    }
+  };
 
+  console.log(filteredData());
   // const filteredData = (products, selected) => {
 
   //   let filteredProducts = products;
