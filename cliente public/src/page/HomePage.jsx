@@ -18,26 +18,30 @@ export const HomePage = () => {
   }, []);
 
   const handleChange = async (event) => {
-    await startLoadingProducts();
-    const selectSize = event.target.value;
+    const selectSize = await event.target.value;
     setSelectedSize(selectSize);
+    await filteredData();
   };
 
-  const filteredData = () => {
+  const filteredData = async() => {
+    // const result = selectedSize
+    //   ? products.filter((product) => product.sizes.includes(`${selectedSize}`))
+    //   : products.slice(); // O simplemente return products; si no necesitas una copia
+
+    // return startFilteredProducts(result);
     if (selectedSize) {
-      const result = products.filter((product) =>
+      const result = await products.filter((product) =>
         product.sizes.includes(`${selectedSize}`)
       );
 
-      return result;
+      return startFilteredProducts(result);
     } else {
       selectedSize === null;
-      const result = products.map((product) => product);
-      return result;
+      const result = await products.map((product) => product);
+      return startFilteredProducts(result);
     }
   };
 
-  console.log(filteredData());
   // const filteredData = (products, selected) => {
 
   //   let filteredProducts = products;

@@ -7,6 +7,7 @@ export const productsSlice = createSlice({
     products: [],
     activeProduct: [],
     isLoading: true,
+    filteredProducts: []
   },
   reducers: {
     onLoadProducts: (state, { payload = [] }) => {
@@ -17,10 +18,10 @@ export const productsSlice = createSlice({
       state.isLoading = true;
       state.selectedSize = payload;
     },
-    onFilteredProducts: (state, { payload }) => {
+    onFilteredProducts: (state, { payload = [] }) => {
       console.log("filter", payload);
       state.isLoading = false;
-      state.products = payload;
+      state.filteredProducts = payload;
     },
   },
 });

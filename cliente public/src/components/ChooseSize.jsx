@@ -1,34 +1,52 @@
+import { useSelector } from "react-redux";
+
 export const ChooseSize = ({ handleChange }) => {
-  const talles = ["S", "M", "L", "XL",];
+  const talles = ["S", "M", "L", "XL"];
+  const { selectedSize } = useSelector(
+    (state) => state.products
+  );
 
   return (
     <>
       <div className="sizeTitle">Elegir Talle:</div>
-
-      {talles.map((talle) => (
-        <div className="form-check">
+      <div
+        className="btn-group"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <div>
           <input
             onChange={handleChange}
-            className="form-check-input"
-            type="radio"
-            value={talle}
-            name={talle}
-            id={`example${talle}`}
-          />
-          <span className="checkmark" htmlFor={`example${talle}`}>{talle}</span>
-        </div>
-      ))}
-      <div className="form-check">
-          <input
-            onChange={handleChange}
-            className="form-check-input"
+            className="btn-check"
             type="radio"
             value={null}
-            name="all"
+            name=""
             id={`exampleAll`}
           />
-          <span className="checkmark" htmlFor={`exampleAll`}>All</span>
+          <label className="btn btn-outline-secondary" htmlFor={`exampleAll`}>
+            All
+          </label>
         </div>
+        {talles.map((talle) => (
+          <div>
+            <input
+              onChange={handleChange}
+              className="btn-check"
+              type="radio"
+              value={talle}
+              name=""
+              id={`example${talle}`}
+             
+            />
+            <label
+              className="btn btn-outline-secondary"
+              htmlFor={`example${talle}`}
+            >
+              {talle}
+            </label>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

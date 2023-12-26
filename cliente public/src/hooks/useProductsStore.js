@@ -5,7 +5,7 @@ import { adminApi } from "../api/adminApi";
 export const useProductStore = () => {
   const dispatch = useDispatch();
 
-  const { products, activeProduct, selectedSize } = useSelector(
+  const { products, activeProduct, selectedSize, filteredProducts } = useSelector(
     (state) => state.products
   );
 
@@ -19,16 +19,12 @@ export const useProductStore = () => {
     }
   };
 
-  const startFilteredProducts = async (selectSize) => {
+  const startFilteredProducts = async (data) => {
     try {
 
-      dispatch(onSelectSize(selectSize))
+      const result = await data
 
-      const filter = await products.filter((product) =>
-        product.sizes.includes(`${selectSize}`)
-      );
-
-      dispatch(onFilteredProducts(filter));
+      dispatch(onFilteredProducts(result));
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +36,7 @@ export const useProductStore = () => {
     products,
     activeProduct,
     selectedSize,
+    filteredProducts,
 
     // Metodos
 
