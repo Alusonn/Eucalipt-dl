@@ -13,9 +13,8 @@ export const cartUiSlice = createSlice({
     onCloseCartUi: (state) => {
       state.isOpen = false;
     },
-    onAddProduct: ({ payload }) => {
-      state.isOpen = true;
-      state.products = payload;
+    onAddProduct: (state, { payload }) => {
+      state.products.push(payload);
     },
   },
 });

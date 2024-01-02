@@ -1,9 +1,10 @@
 import React from "react";
 import { BsCart4 } from "react-icons/bs";
 
-export const CartButton = () => {
+export const CartButton = (props) => {
   const handleCart = () => {
     console.log("abriendo carrito");
+
   };
 
   return (

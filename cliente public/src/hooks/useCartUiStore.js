@@ -8,7 +8,7 @@ import {
 export const useCartUiStore = () => {
   const dispatch = useDispatch();
 
-  const { isOpen, products } = useSelector((state) => state.useCartUiStore);
+  const { products, isOpen } = useSelector((state) => state.cartUi);
 
   const startOpeningCart = async () => {
     try {
@@ -28,7 +28,10 @@ export const useCartUiStore = () => {
 
   const startAddingProduct = async (data) => {
     try {
+      
       dispatch(onAddProduct(data));
+      dispatch(onOpenCartUi())
+
     } catch (error) {
       console.log(error);
     }
@@ -37,8 +40,8 @@ export const useCartUiStore = () => {
   return {
     // Properties
 
-    isOpen,
     products,
+    isOpen,
 
     // Methods
 
