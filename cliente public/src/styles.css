@@ -58,8 +58,6 @@
 
 .sizeTitle {
   font-weight: bold;
-  margin: 10px;
-  padding: 20px;
 }
 
 .label-talle {
@@ -67,6 +65,16 @@
   margin: 5%;
 }
 
-.input-checkbox {
+.cartButton {
+  background-color: #312c2c;
+  border-color:#130f0f;
+  position: fixed;
+  top: 2px;
+  right: 2px;  
+  width: 50px;
+  height: 50px;
+}
 
+.btn-group {
+  display: inline-block;
 }

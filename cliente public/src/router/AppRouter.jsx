@@ -6,7 +6,7 @@ import { ProductPage } from "../page/ProductPage";
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<HomePage/>} />
       <Route path="/:id" element={<ProductPage />} />
     </Routes>
   );

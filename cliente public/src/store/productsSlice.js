@@ -3,11 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const productsSlice = createSlice({
   name: "products",
   initialState: {
-    selectedSize: null,
     products: [],
     activeProduct: [],
     isLoading: true,
-    filteredProducts: []
+    filteredProducts: [],
   },
   reducers: {
     onLoadProducts: (state, { payload = [] }) => {
@@ -18,7 +17,7 @@ export const productsSlice = createSlice({
       state.isLoading = true;
       state.selectedSize = payload;
     },
-    onFilteredProducts: (state, { payload = [] }) => {
+    onFilteredProducts: (state, { payload}) => {
       console.log("filter", payload);
       state.isLoading = false;
       state.filteredProducts = payload;

@@ -2,44 +2,32 @@ import { useEffect, useState } from "react";
 import { ChooseSize } from "../components/ChooseSize";
 import { ProductList } from "../components/ProductList";
 import { useProductStore } from "../hooks/useProductsStore";
+import { CartButton } from "../components/CartButton";
 
 export const HomePage = () => {
-  const { products, startLoadingProducts, startFilteredProducts } =
-    useProductStore();
-
-  const [selectedSize, setSelectedSize] = useState(null);
+  const {
+    products,
+    startLoadingProducts,
+    startFilteredProducts,
+    filteredProducts,
+  } = useProductStore();
 
   useEffect(() => {
     const fetchData = async () => {
       await startLoadingProducts();
     };
-
     fetchData();
   }, []);
 
-  const handleChange = async (event) => {
-    const selectSize = await event.target.value;
-    setSelectedSize(selectSize);
-    await filteredData();
-  };
-
-  const filteredData = async() => {
-    // const result = selectedSize
-    //   ? products.filter((product) => product.sizes.includes(`${selectedSize}`))
-    //   : products.slice(); // O simplemente return products; si no necesitas una copia
-
-    // return startFilteredProducts(result);
-    if (selectedSize) {
-      const result = await products.filter((product) =>
-        product.sizes.includes(`${selectedSize}`)
-      );
-
-      return startFilteredProducts(result);
-    } else {
-      selectedSize === null;
-      const result = await products.map((product) => product);
-      return startFilteredProducts(result);
+  useEffect(() => {
+    if (filteredProducts.length === 0) {
+      startFilteredProducts();
     }
+  }, [products]);
+
+  const handleChange = async ({ target }) => {
+    const selectSize = await target.value;
+    startFilteredProducts(selectSize);
   };
 
   // const filteredData = (products, selected) => {
@@ -75,11 +63,11 @@ export const HomePage = () => {
 
   // const result = filteredData(products, selectedSize);
 
-  console.log(products.length);
-  const cantidadProducts = products.length;
+  const cantidadProducts = filteredProducts.length;
 
   return (
     <>
+      <CartButton />
       <div className="d-block">
         <div className="main">
           <div className="chooseSize">
@@ -90,7 +78,7 @@ export const HomePage = () => {
               <p> {cantidadProducts} Producto(s) encontrados</p>
             </div>
             <div className="productsLayout">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <ProductList key={product._id} {...product}>
                   {" "}
                 </ProductList>

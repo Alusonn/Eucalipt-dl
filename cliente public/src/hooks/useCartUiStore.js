@@ -26,9 +26,9 @@ export const useCartUiStore = () => {
     }
   };
 
-  const startAddingProduct = async ({ name, price, id, sku }) => {
+  const startAddingProduct = async (data) => {
     try {
-      dispatch(onAddProduct());
+      dispatch(onAddProduct(data));
     } catch (error) {
       console.log(error);
     }
