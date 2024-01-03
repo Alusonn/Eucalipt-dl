@@ -13,7 +13,7 @@ export const cartUiSlice = createSlice({
     onCloseCartUi: (state) => {
       state.isOpen = false;
     },
-    onAddProduct: (state, { payload }) => {
+    onAddProduct: (state, { payload = {} }) => {
       state.products.push(payload);
     },
   },

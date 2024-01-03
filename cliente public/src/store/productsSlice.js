@@ -17,8 +17,7 @@ export const productsSlice = createSlice({
       state.isLoading = true;
       state.selectedSize = payload;
     },
-    onFilteredProducts: (state, { payload}) => {
-      console.log("filter", payload);
+    onFilteredProducts: (state, { payload = {} }) => {
       state.isLoading = false;
       state.filteredProducts = payload;
     },

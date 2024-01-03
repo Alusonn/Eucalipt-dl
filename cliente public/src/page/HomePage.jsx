@@ -3,6 +3,8 @@ import { ChooseSize } from "../components/ChooseSize";
 import { ProductList } from "../components/ProductList";
 import { useProductStore } from "../hooks/useProductsStore";
 import { CartButton } from "../components/CartButton";
+import { Cart } from "../components/Cart";
+import { useCartUiStore } from "../hooks/useCartUiStore";
 
 export const HomePage = () => {
   const {
@@ -11,6 +13,8 @@ export const HomePage = () => {
     startFilteredProducts,
     filteredProducts,
   } = useProductStore();
+
+  const { isOpen } = useCartUiStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +71,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <CartButton />
+      {isOpen ? <Cart /> : <CartButton/>}
       <div className="d-block">
         <div className="main">
           <div className="chooseSize">

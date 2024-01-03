@@ -6,7 +6,6 @@ export const ProductList = (data) => {
   const { startAddingProduct } = useCartUiStore();
 
   const onAddCart = async () => {
-    console.log("Añadido al carrito de compras de Eucalipto-dl", data.name);
     await startAddingProduct(data)
   };
 
