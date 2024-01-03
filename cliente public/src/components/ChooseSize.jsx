@@ -1,12 +1,24 @@
+import { useProductStore } from "../hooks/useProductsStore";
 
-export const ChooseSize = ({ handleChange }) => {
-  const talles = ["S", "M", "L", "XL",];
+export const ChooseSize = () => {
+
+  const {
+    startFilteredProducts,
+  } = useProductStore();
+
+  const handleChange = ({target}) => {
+    startFilteredProducts(target.value);
+  };
+
+  const talles = ["S", "M", "L", "XL"];
 
   // const { selectedSize } = useSelector((state) => state.products);
 
   return (
     <>
-      <div className="sizeTitle mb-3 d-flex justify-content-center">Elegir Talle:</div>
+      <div className="sizeTitle mb-3 d-flex justify-content-center">
+        Elegir Talle:
+      </div>
       <div
         className="btn-group"
         role="group"
@@ -20,7 +32,6 @@ export const ChooseSize = ({ handleChange }) => {
             value={undefined}
             name=""
             id={`exampleAll`}
-            
           />
           <label className="btn btn-outline-secondary" htmlFor={`exampleAll`}>
             All

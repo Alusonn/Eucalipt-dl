@@ -29,10 +29,7 @@ export const HomePage = () => {
     }
   }, [products]);
 
-  const handleChange = async ({ target }) => {
-    const selectSize = await target.value;
-    startFilteredProducts(selectSize);
-  };
+  
 
   // const filteredData = (products, selected) => {
 
@@ -75,7 +72,7 @@ export const HomePage = () => {
       <div className="d-block">
         <div className="main">
           <div className="chooseSize">
-            <ChooseSize key={Math.random()} handleChange={handleChange} />
+            <ChooseSize key={Math.random()}/>
           </div>
           <div className="products-list">
             <div className="contadorProductos">
