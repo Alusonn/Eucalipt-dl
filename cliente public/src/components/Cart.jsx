@@ -9,9 +9,6 @@ export const Cart = () => {
     startClosingCart();
   };
 
-  const productosCart = products.length
-
-  console.log(productosCart)
 
   return (
     <>
@@ -29,7 +26,7 @@ export const Cart = () => {
               <div className="addProductCart">Añade productos al carrito</div>
             ) : (
               products.map((product) => (
-                <CartItem key={product._id} {...product}>
+                <CartItem key={Math.random()} {...product}>
                   {" "}
                 </CartItem>
               ))

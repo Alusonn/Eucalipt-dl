@@ -250,3 +250,20 @@
   width: 100%;
   text-align: center;
 }
+
+.productsCartQuantity {
+  z-index: 5;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #eabf00;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  color: #0c0b10;
+  bottom: 0;
+  right: 5px;
+  line-height: 18px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+}

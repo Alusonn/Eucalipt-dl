@@ -12,6 +12,9 @@ export const productsSlice = createSlice({
     onLoadProducts: (state, { payload = [] }) => {
       state.isLoading = false;
       state.products = payload;
+      state.products = state.products.filter(
+        (product) => product.active === true
+      );
     },
     onSelectSize: (state, { payload }) => {
       state.isLoading = true;
@@ -21,9 +24,27 @@ export const productsSlice = createSlice({
       state.isLoading = false;
       state.filteredProducts = payload;
     },
+    onChangingBooleanProduct: (state, { payload }) => {
+
+
+
+    },
+    // onDeleteFilteredProduct: (state, { payload }) => {
+    //   state.products = state.products.filter(
+    //     (product) => product._id !== payload
+    //   );
+    //   state.filteredProducts = state.filteredProducts.filter(
+    //     (product) => product._id !== payload
+    //   );
+    // },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onLoadProducts, onFilteredProducts, onSelectSize } =
-  productsSlice.actions;
+export const {
+  onLoadProducts,
+  onFilteredProducts,
+  onSelectSize,
+  onDeleteFilteredProduct,
+  onChangingBooleanProduct,
+} = productsSlice.actions;

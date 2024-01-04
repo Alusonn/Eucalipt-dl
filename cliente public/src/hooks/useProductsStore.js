@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+  onDeleteFilteredProduct,
   onFilteredProducts,
   onLoadProducts,
   onSelectSize,
 } from "../store/productsSlice";
 import { adminApi } from "../api/adminApi";
+import { Children } from "react";
 
 export const useProductStore = () => {
   const dispatch = useDispatch();
@@ -29,9 +31,17 @@ export const useProductStore = () => {
         ? products.filter((product) =>
             product.sizes.includes(`${selectedSize}`)
           )
-        : products.map((product) => product); // O simplemente return products; si no necesitas una copia
+        : products.map((product) => product);
 
       return dispatch(onFilteredProducts(result));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const startDeletingFilteredProduct = (id) => {
+    try {
+      dispatch(onDeleteFilteredProduct(id));
     } catch (error) {
       console.log(error);
     }
@@ -48,5 +58,6 @@ export const useProductStore = () => {
 
     startLoadingProducts,
     startFilteredProducts,
+    startDeletingFilteredProduct,
   };
 };

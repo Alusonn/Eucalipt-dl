@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   onAddProduct,
   onCloseCartUi,
+  onDeleteProduct,
   onOpenCartUi,
 } from "../store/cartUiSlice";
 
@@ -34,6 +35,14 @@ export const useCartUiStore = () => {
     }
   };
 
+  const startDeletingProduct = async (id) => {
+    try {
+      dispatch(onDeleteProduct(id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     // Properties
 
@@ -45,5 +54,6 @@ export const useCartUiStore = () => {
     startOpeningCart,
     startClosingCart,
     startAddingProduct,
+    startDeletingProduct,
   };
 };

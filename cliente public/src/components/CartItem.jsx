@@ -1,14 +1,17 @@
 import React from "react";
+import { useCartUiStore } from "../hooks/useCartUiStore";
 
 export const CartItem = (product) => {
-  const id = product._id;
+  const { startDeletingProduct } = useCartUiStore();
 
-  const { name, _id, description, sizes, type, price } = product;
+  const { name, sizes, type, price } = product;
+
+  const id = product._id;
 
   const image = product.image.secure_url;
 
   const handleExitProductCart = () => {
-    console.log("se elimino", name);
+    startDeletingProduct(id);
   };
 
   return (
@@ -23,7 +26,9 @@ export const CartItem = (product) => {
       <img src={image} alt={name} className="cartImg" />
       <div className="cartDetails">
         <p className="cartTitle">{name}</p>
-        <p className="cartDescription">Talle: {sizes} | {type}</p>
+        <p className="cartDescription">
+          Talle: {sizes} | {type}
+        </p>
         <p className="cartQuantity">dsa</p>
       </div>
       <div className="cartProductPrice">
