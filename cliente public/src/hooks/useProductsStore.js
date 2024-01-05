@@ -1,12 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  onDeleteFilteredProduct,
   onFilteredProducts,
   onLoadProducts,
-  onSelectSize,
 } from "../store/productsSlice";
 import { adminApi } from "../api/adminApi";
-import { Children } from "react";
 
 export const useProductStore = () => {
   const dispatch = useDispatch();
@@ -39,13 +36,7 @@ export const useProductStore = () => {
     }
   };
 
-  const startDeletingFilteredProduct = (id) => {
-    try {
-      dispatch(onDeleteFilteredProduct(id));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
 
   return {
     //  Propiedades
@@ -58,6 +49,5 @@ export const useProductStore = () => {
 
     startLoadingProducts,
     startFilteredProducts,
-    startDeletingFilteredProduct,
   };
 };

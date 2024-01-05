@@ -24,19 +24,6 @@ export const productsSlice = createSlice({
       state.isLoading = false;
       state.filteredProducts = payload;
     },
-    onChangingBooleanProduct: (state, { payload }) => {
-
-
-
-    },
-    // onDeleteFilteredProduct: (state, { payload }) => {
-    //   state.products = state.products.filter(
-    //     (product) => product._id !== payload
-    //   );
-    //   state.filteredProducts = state.filteredProducts.filter(
-    //     (product) => product._id !== payload
-    //   );
-    // },
   },
 });
 

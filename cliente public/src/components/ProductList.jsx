@@ -4,11 +4,9 @@ import { useProductStore } from "../hooks/useProductsStore";
 
 export const ProductList = (data) => {
   const { startAddingProduct } = useCartUiStore();
-  const { startDeletingFilteredProduct } = useProductStore();
 
   const onAddCart = async () => {
     await startAddingProduct(data);
-    startDeletingFilteredProduct(data._id);
   };
 
   return (

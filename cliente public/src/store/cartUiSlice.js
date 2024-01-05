@@ -5,6 +5,8 @@ export const cartUiSlice = createSlice({
   initialState: {
     products: [],
     isOpen: false,
+    totalAmount: 0,
+    totalPrice: 0 
   },
   reducers: {
     onOpenCartUi: (state) => {

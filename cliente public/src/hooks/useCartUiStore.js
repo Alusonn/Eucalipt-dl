@@ -29,6 +29,7 @@ export const useCartUiStore = () => {
 
   const startAddingProduct = async (data) => {
     try {
+      
       dispatch(onAddProduct(data));
     } catch (error) {
       console.log(error);
